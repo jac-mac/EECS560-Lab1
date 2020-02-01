@@ -20,5 +20,6 @@ class Executive
   void clear();
   int getUserInput();
   void executeOrders(int num);
+  void initializeList(std::ifstream &i);
 };
 #endif

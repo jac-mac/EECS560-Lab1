@@ -20,6 +20,7 @@ void Executive::run()
   inFile.open(fileName);
 
   fileRetry(inFile);
+  initializeList(inFile);
   while(num != 11)
   {
     clear();
@@ -95,11 +96,56 @@ void Executive::executeOrders(int num)
       break;
 
     case 4:
-
+      std::cout << "What element do you wish to remove from the list? ";
+      std::cin >> userPick;
+      try
+      {
+        ptr->remove(userPick, 0);
+      }
+      catch(std::runtime_error rte)
+      {
+        std::cout << rte.what();
+      }
       break;
 
     case 5:
+    {
+      int position = 1;
+      bool duplicateFound = false;
+      std::cout << "Removing all duplicate elements in this list...\n";
+      while(position < ptr->getLength())
+      {
+        try
+        {
+          duplicateFound = false;
+          for(int i = 1; i <= ptr->getLength(); i++)
+          {
+            for(int j = 1; j < i; j++)
+            {
+              std::cout << i << ' ' << j << '\n';
+              if(ptr->getEntry(i) == ptr->getEntry(j))
+              {
+                ptr->remove(i);
+                duplicateFound = true;
+                break;
+              }
+            }
+            position = i;
+            if(duplicateFound)
+              break;
+          }
+        }
+        catch(std::runtime_error rte)
+        {
+          std::cout << rte.what();
+        }
+      }
+
+
+
+      std::cout << "Done.\n\n";
       break;
+    }
 
     case 6:
     {
@@ -159,12 +205,19 @@ void Executive::executeOrders(int num)
     }
 
     case 8:
-      std::cout << "Your linked list: ";
-      for(int i = 1; i <= ptr->getLength(); i++)
+      try
       {
-        std::cout << ptr->getEntry(i) << ' ';
+        std::cout << "Your linked list: ";
+        for(int i = 1; i <= ptr->getLength(); i++)
+        {
+          std::cout << ptr->getEntry(i) << ' ';
+        }
+        std::cout << '\n';
       }
-      std::cout << '\n';
+      catch(std::runtime_error rte)
+      {
+        rte.what();
+      }
       break;
 
     case 9:
@@ -206,5 +259,14 @@ void Executive::executeOrders(int num)
     default:
       std::cout << "\n\nInvalid choice.\n\n";
 
+  }
+}
+
+void Executive::initializeList(std::ifstream &i)
+{
+  int entry;
+  while(i >> entry)
+  {
+    ptr->insert(1, entry);
   }
 }

@@ -74,12 +74,82 @@ void LinkedList<T>::insert(int position, T entry) throw (std::runtime_error)
 }
 
 template <typename T>
+void LinkedList<T>::remove(T entry, int dummy) throw (std::runtime_error)
+{
+	int position = 0;
+	if(isEmpty())
+	{
+		throw std::runtime_error("List is empty!");
+	}
+
+	else
+	{
+		Node<T>* current = firstPtr;
+		for(int i = 1; i <= itemCount; i++)
+		{
+			if(current->getEntry() == entry)
+			{
+				position = i;
+				std::cout << position << ' ';
+			}
+
+			if(current->getNext() != nullptr)
+			{
+				current = current->getNext();
+			}
+			else if(current->getNext() == nullptr && position == 0)
+			{
+				throw std::runtime_error("Element not found!");
+			}
+		}
+
+		current = firstPtr;
+		Node<T>* backOne = nullptr;
+		if(position == itemCount)
+		{
+			for(int i = 1; i < position; i++)
+			{
+				backOne = current;
+				current = current->getNext();
+			}
+			backOne->setNext(nullptr);
+			delete current;
+			itemCount = itemCount - 1;
+		}
+
+		else if(position < itemCount && position > 1)
+		{
+			for(int i = 1; i < position; i++)
+			{
+				backOne = current;
+				current = current->getNext();
+			}
+			backOne->setNext(current->getNext());
+			delete current;
+			itemCount = itemCount - 1;
+		}
+
+		else if(position == 1)
+		{
+			if(firstPtr->getNext() != nullptr)
+			{
+				firstPtr = firstPtr->getNext();
+			}
+			else
+			{
+				firstPtr = nullptr;
+			}
+			delete current;
+			itemCount = itemCount - 1;
+		}
+	}
+}
+
+template <typename T>
 void LinkedList<T>::remove(int position) throw (std::runtime_error)
 {
 	if(isEmpty() || position < 1 || position > itemCount)
-	{
-		throw std::runtime_error("List is empty or the position you inserted is invalid!");
-	}
+		throw std::runtime_error("List is empty or you have entered an invalid position!");
 
 	else if(!(isEmpty()) && position == 1)
 	{
@@ -97,13 +167,14 @@ void LinkedList<T>::remove(int position) throw (std::runtime_error)
 	{
 		Node<T>* current = firstPtr;
 		Node<T>* previous = nullptr;
-		for(int i = 1; i < position; i++)
+		for(int i =1; i < position; i++)
 		{
 			previous = current;
 			current = current->getNext();
 		}
 		previous->setNext(current->getNext());
 		delete current;
+		itemCount = itemCount - 1;
 	}
 }
 

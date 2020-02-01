@@ -3,6 +3,7 @@
 
 #include "Node.h"
 #include <stdexcept>
+#include <iostream>
 
 template <typename T>
 class LinkedList
@@ -16,6 +17,7 @@ class LinkedList
   bool isEmpty() const;
  	int getLength() const;
  	void insert(int position, T entry) throw (std::runtime_error);
+	void remove(T entry, int dummy) throw (std::runtime_error);
 	void remove(int position) throw (std::runtime_error);
 	void clear();
 	T getEntry(int position) const throw (std::runtime_error);

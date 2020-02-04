@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-  if(argc < 2)
+  if(argc < 2)//command line requires the executable, and the name of the file to be read.
   {
     std::cout << "\nIncorrect number of parameters! Please include the name of the data file on the command line.\n\n";
   }

@@ -14,7 +14,7 @@ Executive::~Executive()
 
 void Executive::run()
 {
-  int num;
+  int num = 0;
 
   std::ifstream inFile;
   inFile.open(fileName);
@@ -27,6 +27,19 @@ void Executive::run()
     printMenu();
 
     std::cin >> num;
+    while(1)
+    {
+      if(cin.fail())
+      {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Input a NUMBER please. \n\n";
+        cout << "Your choice: ";
+        cin >> num;
+      }
+      else
+        break;
+    }
     executeOrders(num);
     usleep(1500000);
   }
@@ -70,6 +83,18 @@ int Executive::getUserInput()
 {
   int num;
   std::cin >> num;
+  while(1)
+  {
+    if(std::cin.fail())
+    {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      std::cout << "Try again. Please type in an eligible NUMBER from the menu.\n";
+      std::cin >> num;
+    }
+    else
+      break;
+  }
   return num;
 }
 
@@ -92,12 +117,38 @@ void Executive::executeOrders(int num)
     case 3:
       std::cout << "What number do you want to insert? ";
       std::cin >> userPick;
+      while(1)
+      {
+        if(cin.fail())
+        {
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          cout << "Input a NUMBER please. \n\n";
+          cout << "What number do you want to insert? ";
+          cin >> num;
+        }
+        else
+          break;
+      }
       ptr->insert(1, userPick);
       break;
 
     case 4:
       std::cout << "What element do you wish to remove from the list? ";
       std::cin >> userPick;
+      while(1)
+      {
+        if(cin.fail())
+        {
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          cout << "Input a NUMBER please. \n\n";
+          cout << "What number do you want to remove? ";
+          cin >> num;
+        }
+        else
+          break;
+      }
       try
       {
         ptr->remove(userPick, 0);
@@ -153,6 +204,19 @@ void Executive::executeOrders(int num)
       int position = 0;
       std::cout << "Which number do you want to search for?: ";
       std::cin >> userPick;
+      while(1)
+      {
+        if(cin.fail())
+        {
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          cout << "Input a NUMBER please. \n\n";
+          cout << "What number do you want to search for? ";
+          cin >> num;
+        }
+        else
+          break;
+      }
       if(ptr->isEmpty())
       {
         std::cout << "List is empty.\n";
@@ -185,6 +249,19 @@ void Executive::executeOrders(int num)
       int position= 0;
       std::cout << "At which position do you want to see the next element?: ";
       std::cin >> position;
+      while(1)
+      {
+        if(cin.fail())
+        {
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          cout << "Input a NUMBER please. \n\n";
+          cout << "What position do you want to see the next element? ";
+          cin >> num;
+        }
+        else
+          break;
+      }
       if(ptr->isEmpty())
       {
         std::cout << "\n\n List is empty.\n";
@@ -240,6 +317,19 @@ void Executive::executeOrders(int num)
     case 10:
       std::cout << "Which index do you want to see?: ";
       std::cin >> userPick;
+      while(1)
+      {
+        if(cin.fail())
+        {
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          cout << "Input a NUMBER please. \n\n";
+          cout << "What index do you want to see? ";
+          cin >> num;
+        }
+        else
+          break;
+      }
 
       try
       {
